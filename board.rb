@@ -23,6 +23,14 @@ class Board
     end
   end
 
+  def get_neighborhood(x,y)
+    if x == 0 || x == @rows || y == 0 || y == @cols
+      5
+    else
+      8
+    end
+  end
+
 end
 
 
@@ -52,6 +60,31 @@ class TestBoard < MiniTest::Test
     board = Board.new(3,4)
     board.set_all_cells_alive
     assert board.cells[1][2]
+  end
+
+  def test_cell_neighborhood_center_8
+    board = Board.new(10,10)
+    assert_equal 8, board.get_neighborhood(4,7)
+  end
+
+  def test_cell_neighborhood_left_edge_5
+    board = Board.new(5,6)
+    assert_equal 5, board.get_neighborhood(0,3)
+  end
+
+  def test_cell_neighborhood_right_edge_5
+    board = Board.new(5,6)
+    assert_equal 5, board.get_neighborhood(5,2)
+  end
+
+  def test_cell_neighborhood_top_edge_5
+    board = Board.new(5,6)
+    assert_equal 5, board.get_neighborhood(3,0)
+  end
+
+  def test_cell_neighborhood_bottom_edge_5
+    board = Board.new(5,6)
+    assert_equal 5, board.get_neighborhood(3,6)
   end
 
 end
